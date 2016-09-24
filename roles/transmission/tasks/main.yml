@@ -4,6 +4,9 @@
 - name: Make sure transmission is not running
   service: name=transmission-daemon state=stopped
 
+- name: Add raspberry pi user to transmission group
+  user: name=pi groups={{ TRANSMISSION_GROUP }} append=yes
+
 - name: Copy configuration file
   template: src=templates/settings.json.j2
             dest=/etc/transmission-daemon/settings.json
@@ -11,10 +14,16 @@
             group={{ TRANSMISSION_GROUP }}
 
 - name: Make sure torrents dir exists
-  file: dest={{ TRANSMISSION_DOWNLOAD_DIR }} state=directory
+  file: dest={{ TRANSMISSION_DOWNLOAD_DIR }}
+        state=directory
+        owner={{ TRANSMISSION_USER }}
+        group={{ TRANSMISSION_GROUP }}
 
 - name: Make sure torrentfile dir exists
-  file: dest={{ TRANSMISSION_TORRENTS_DIR }} state=directory
+  file: dest={{ TRANSMISSION_TORRENTS_DIR }}
+        state=directory
+        owner={{ TRANSMISSION_USER }}
+        group={{ TRANSMISSION_GROUP }}
 
 - name: Start and enable service
   service: name=transmission-daemon state=started enabled=true

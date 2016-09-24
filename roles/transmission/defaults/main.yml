@@ -1,4 +1,4 @@
-TRANSMISSION_DOWNLOAD_DIR: /mnt/HDD/Torrents/
+TRANSMISSION_DOWNLOAD_DIR: /mnt/HDD/Torrents
 TRANSMISSION_TORRENTS_DIR: /mnt/HDD/Torrents/torrentfiles
 
 TRANSMISSION_USER: debian-transmission
