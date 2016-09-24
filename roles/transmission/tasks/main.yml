@@ -1,0 +1,20 @@
+- name: Install transmission daemon
+  apt: name=transmission-daemon state=present
+
+- name: Make sure transmission is not running
+  service: name=transmission-daemon state=stopped
+
+- name: Copy configuration file
+  template: src=templates/settings.json.j2
+            dest=/etc/transmission-daemon/settings.json
+            owner={{ TRANSMISSION_USER }}
+            group={{ TRANSMISSION_GROUP }}
+
+- name: Make sure torrents dir exists
+  file: dest={{ TRANSMISSION_DOWNLOAD_DIR }} state=directory
+
+- name: Make sure torrentfile dir exists
+  file: dest={{ TRANSMISSION_TORRENTS_DIR }} state=directory
+
+- name: Start and enable service
+  service: name=transmission-daemon state=started enabled=true
