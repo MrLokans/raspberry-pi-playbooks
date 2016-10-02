@@ -1,0 +1,24 @@
+---
+- name: Add repository key
+  apt_key: url={{ MOPIDY_KEY_URL }}
+
+- name: Add repository
+  get_url: url={{ MOPIDY_REPO_LIST_URL }} dest={{ MOPIDY_REPO_LIST_FILE }}
+
+- name: Make sure mopidy is not running if installed
+  service: name=mopidy state=stopped
+
+- name: Install mopidy package
+  apt: name=mopidy state=present update_cache=true cache_valid_time=3600
+
+- name: Copy config
+  template: src=templates/mopidy.conf.j2 dest=/etc/mopidy/mopidy.conf
+
+# - name: Scan local dir
+#   command: mopidy --config /usr/share/mopidy/conf.d:/etc/mopidy/mopidy.conf local scan
+
+- name: Install mopidy-webclient
+  pip: name=mopidy-musicbox-webclient state=present
+
+- name: Start mopidy server
+  service: name=mopidy enabled=True state=started

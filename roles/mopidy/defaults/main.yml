@@ -1,0 +1,6 @@
+MOPIDY_USER: pi
+MOPIDY_GROUP: pi
+MOPIDY_LOCAL_MUSIC_DIR: /home/{{ MOPIDY_USER }}
+MOPIDY_KEY_URL: https://apt.mopidy.com/mopidy.gpg
+MOPIDY_REPO_LIST_URL: https://apt.mopidy.com/wheezy.list
+MOPIDY_REPO_LIST_FILE: /etc/apt/sources.list.d/mopidy.list

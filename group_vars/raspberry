@@ -1,1 +1,6 @@
 TIMEZONE_NAME: 'Europe/Minsk'
+
+MOPIDY_USER: pi
+MOPIDY_GROUP: pi
+
+MOPIDY_LOCAL_MUSIC_DIR: /mnt/HDD/Music/
