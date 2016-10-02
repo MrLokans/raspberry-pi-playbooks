@@ -1,0 +1,13 @@
+- name: check timedatectl existance
+  command:  timedatectl
+  register: timedatectl_exists
+
+- name: set timezone through timedatectl
+  command: timedatectl set-timezone {{ TIMEZONE_NAME }}
+  when: timedatectl_exists | succeeded
+  notify: Restart crond
+
+- name: set timezone via editing /etc/timezone
+  lineinfile: dest=/etc/timezone line={{ TIMEZONE_NAME }}
+  when: timedatectl_exists | failed
+  notify: Restart crond
