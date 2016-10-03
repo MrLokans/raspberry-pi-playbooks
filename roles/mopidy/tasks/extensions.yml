@@ -1,0 +1,5 @@
+- name: Install mopidy-webclient
+  pip: name=mopidy-musicbox-webclient state=present
+
+- name: Install mopidy-youtube
+  pip: name=mopidy-youtube

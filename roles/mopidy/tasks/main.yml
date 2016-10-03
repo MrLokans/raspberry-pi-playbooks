@@ -8,11 +8,16 @@
 - name: Make sure mopidy is not running if installed
   service: name=mopidy state=stopped
 
+- name: Install bad plugins
+  apt: name=gstreamer1.0-plugins-bad state=present
+
 - name: Install mopidy package
   apt: name=mopidy state=present update_cache=true cache_valid_time=3600
 
 - name: Copy config
   template: src=templates/mopidy.conf.j2 dest=/etc/mopidy/mopidy.conf
+
+- include: extensions.yml
 
 # - name: Scan local dir
 #   command: mopidy --config /usr/share/mopidy/conf.d:/etc/mopidy/mopidy.conf local scan
