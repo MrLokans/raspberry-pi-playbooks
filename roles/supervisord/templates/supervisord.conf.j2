@@ -1,4 +1,5 @@
 [supervisord]
+logfile=/var/log/supervisor/supervisord.log
 logfile_maxbytes={{ SUPERVISORD_LOG_MAX_BYTES }}
 logfile_backups=10
 loglevel={{ SUPERVISORD_LOG_LEVEL }}
@@ -7,4 +8,4 @@ loglevel={{ SUPERVISORD_LOG_LEVEL }}
 serverurl=unix:///var/run/supervisor/supervisor.sock
 
 [include]
-files=/etc/supervisord/conf.d/*.conf
+files={{ SUPERVISORD_CONF_DIR }}/conf.d/*.conf
