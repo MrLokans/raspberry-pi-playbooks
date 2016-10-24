@@ -1,0 +1,3 @@
+---
+- name: Install nodejs package
+  apt: name=nodejs state=present
