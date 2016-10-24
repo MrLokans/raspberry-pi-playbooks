@@ -1,0 +1,36 @@
+---
+
+- name: Make sure statsd group is present
+  group: name={{ STATSD_GROUP }}  state=present
+
+- name: Make sure statsd user exists
+  user: name={{ STATSD_USER }}
+        createhome=no
+        group={{ STATSD_GROUP }}
+        state=present
+
+- name: Make sure checkout dir does not exist
+  file: path={{ STATSD_INSTALLATION_DIR }}
+        state=absent
+
+- name: Make sure dir for statsd is present
+  file: group={{ STATSD_GROUP }}
+        owner={{ STATSD_USER }}
+        path={{ STATSD_INSTALLATION_DIR }}
+        state=directory
+
+- name: Checkout statsd repository
+  git: clone=yes
+       repo={{ STATSD_REPO_URL }}
+       dest={{ STATSD_INSTALLATION_DIR }}
+  become: yes
+  become_method: sudo
+  become_user: "{{ STATSD_USER }}"
+
+- name: Copy statsd supervisor config
+  template: src=templates/statsd-supervisord.conf.j2
+            dest={{ SUPERVISORD_CONF_DIR }}/conf.d/statsd.conf
+
+- name: Copy statsd main config
+  template: src=templates/statsdConfig.js.j2
+            dest={{ STATSD_CONFIG_PATH }}

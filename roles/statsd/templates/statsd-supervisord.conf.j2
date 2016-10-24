@@ -1,0 +1,5 @@
+[program:statsd]
+command = /usr/bin/nodejs {{ STATSD_INSTALLATION_DIR }}/stats.js {{ STATSD_CONFIG_PATH }}
+stdout_logfile = /var/log/supervisor/%(program_name)s.log
+stderr_logfile = /var/log/supervisor/%(program_name)s.log
+autorestart = true
