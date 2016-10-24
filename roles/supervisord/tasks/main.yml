@@ -1,0 +1,22 @@
+---
+- name: Install Supervisord
+  apt: name={{ item }} state=present
+  with_items: 
+    - supervisor
+
+- name: Copy supervisord config file
+  template:
+    src: templates/supervisord.conf.j2
+    dest: "{{ SUPERVISORD_CONF_FILE }}"
+
+- name: Copy supervisord init script
+  template:
+    src: templates/supervisord.init.j2
+    dest: /etc/init.d/supervisor
+    mode: u+x,g+x
+
+- name: Ensure supervisord is running
+  service:
+    name: supervisor
+    state: started
+    enabled: yes
