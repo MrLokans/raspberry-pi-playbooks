@@ -1,0 +1,6 @@
+GRAPHITE_VERSON: 0.9.15
+GRAPHITE_DIR: /opt/graphite
+
+CARBON_REPO: https://github.com/graphite-project/carbon
+WHISPER_REPO: https://github.com/graphite-project/whisper
+GRAPHITE_WEB_REPO: https://github.com/graphite-project/graphite-web

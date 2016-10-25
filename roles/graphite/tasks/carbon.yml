@@ -1,0 +1,8 @@
+---
+- name: Copy carbon repo
+  git: clone=yes
+       repo={{ item.repo }}
+       dest={{ GRAPHITE_DIR }}/{{ item.dir }}
+       version={{ GRAPHITE_VERSON }}
+  with_items:
+    - { repo: "{{ CARBON_REPO }}", dir: "{{ GRAPHITE_DIR }}/carbon" }

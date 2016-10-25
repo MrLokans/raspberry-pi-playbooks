@@ -1,0 +1,8 @@
+---
+- name: Copy whisper repo
+  git: clone=yes
+       repo={{ item.repo }}
+       dest={{ GRAPHITE_DIR }}/{{ item.dir }}
+       version={{ GRAPHITE_VERSON }}
+  with_items:
+    - { repo: "{{ WHISPER_REPO }}", dir: "{{ GRAPHITE_DIR }}/whisper" }

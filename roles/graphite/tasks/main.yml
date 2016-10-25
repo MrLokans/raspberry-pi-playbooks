@@ -1,0 +1,29 @@
+---
+
+- name: Make sure required packages are installed
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - libcairo2-dev
+    - libffi-dev
+    - memcached
+    - python-dev
+    - python-virtualenv
+
+- name: Make sure graphite app dir exists
+  file: name={{ GRAPHITE_DIR }}
+        state=directory
+
+- name: Create virtualenv and install required dependencies
+  pip: name={{ item }}
+       virtualenv=/opt/graphite/venv
+       virtualenv_site_packages=no
+  with_items:
+    - python-memcached 
+    - pytz 
+    - pyparsing
+    - gunicorn
+    - cairocffi
+
+- include: whisper.yml
+- include: carbon.yml
+- include: graphite-web.yml
