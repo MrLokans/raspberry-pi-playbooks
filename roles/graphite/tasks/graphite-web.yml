@@ -2,7 +2,7 @@
 - name: Copy graphite-web repo
   git: clone=yes
        repo={{ item.repo }}
-       dest={{ GRAPHITE_DIR }}/{{ item.dir }}
+       dest={{ item.dir }}
        version={{ GRAPHITE_VERSON }}
   with_items:
     - { repo: "{{ GRAPHITE_WEB_REPO }}", dir: "{{ GRAPHITE_DIR }}/graphite-web" }

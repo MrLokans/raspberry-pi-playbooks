@@ -2,7 +2,11 @@
 - name: Copy carbon repo
   git: clone=yes
        repo={{ item.repo }}
-       dest={{ GRAPHITE_DIR }}/{{ item.dir }}
+       dest={{ item.dir }}
        version={{ GRAPHITE_VERSON }}
   with_items:
     - { repo: "{{ CARBON_REPO }}", dir: "{{ GRAPHITE_DIR }}/carbon" }
+
+- name: Install carbon dependencies
+  pip: requirements={{ GRAPHITE_DIR }}/carbon/requirements.txt
+       virtualenv={{ GRAPHITE_DIR }}  
