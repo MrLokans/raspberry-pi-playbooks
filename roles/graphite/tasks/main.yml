@@ -15,7 +15,7 @@
 
 - name: Create virtualenv and install required dependencies
   pip: name={{ item }}
-       virtualenv=/opt/graphite/venv
+       virtualenv=/opt/graphite/
        virtualenv_site_packages=no
   with_items:
     - python-memcached 

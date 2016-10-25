@@ -6,3 +6,7 @@
        version={{ GRAPHITE_VERSON }}
   with_items:
     - { repo: "{{ GRAPHITE_WEB_REPO }}", dir: "{{ GRAPHITE_DIR }}/graphite-web" }
+
+- name: Install graphite web dependencies
+  pip: requirements={{ GRAPHITE_DIR }}/graphite-web/requirements.txt
+     virtualenv={{ GRAPHITE_DIR }}  
