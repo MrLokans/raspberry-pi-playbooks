@@ -1,8 +1,10 @@
 ---
-- name: Copy whisper repo
-  git: clone=yes
-       repo={{ item.repo }}
-       dest={{ item.dir }}
-       version={{ GRAPHITE_VERSON }}
-  with_items:
-    - { repo: "{{ WHISPER_REPO }}", dir: "{{ GRAPHITE_DIR }}/whisper" }
+- name: Install whisper package
+  pip: name=whisper
+       virtualenv={{ GRAPHITE_DIR }}  
+
+- name: Copy config file
+  template: src=templates/storage-schemas.conf.j2
+            dest={{ GRAPHITE_DIR }}/conf/storage-schemas.conf
+  tags:
+    - settings
