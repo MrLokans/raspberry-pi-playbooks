@@ -23,6 +23,7 @@
     - pyparsing
     - gunicorn
     - cairocffi
+    - django-tagging
 
 - include: whisper.yml
 - include: carbon.yml

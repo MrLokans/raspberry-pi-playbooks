@@ -14,3 +14,16 @@
   command: "{{ GRAPHITE_DIR }}/bin/python python manage.py syncdb"
   args:
     chdir: "{{ GRAPHITE_DIR }}/webapp/graphite"
+
+- name: Copy supervisor config
+  template: src=templates/graphite-supervisord.conf.j2
+            dest={{ SUPERVISORD_CONF_DIR }}/conf.d/graphite.conf
+  tags:
+    - settings
+
+- name: Start graphite app
+  supervisorctl: name={{ GRAPHITE_APP_NAME }}
+                 state=started
+                 config={{ SUPERVISORD_CONF_DIR }}/supervisord.conf
+  tags:
+    - activation

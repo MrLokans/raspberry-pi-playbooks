@@ -8,3 +8,16 @@
             dest={{ GRAPHITE_DIR }}/conf/carbon.conf
   tags:
     - settings
+
+- name: Copy supervisor config
+  template: src=templates/carbon-supervisord.conf.j2
+            dest={{ SUPERVISORD_CONF_DIR }}/conf.d/carbon.conf
+  tags:
+    - settings
+
+- name: start carbon cache
+  supervisorctl: name={{ CARBON_APP_NAME }}
+                 state=started
+                 config={{ SUPERVISORD_CONF_DIR }}/supervisord.conf
+  tags:
+    - activation
