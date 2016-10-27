@@ -3,8 +3,14 @@
   pip: name=whisper
        virtualenv={{ GRAPHITE_DIR }}  
 
-- name: Copy config file
+- name: Copy schema config file
   template: src=templates/storage-schemas.conf.j2
             dest={{ GRAPHITE_DIR }}/conf/storage-schemas.conf
+  tags:
+    - settings
+
+- name: Copy aggregation config file
+  template: src=templates/storage-aggregation.conf.j2
+            dest={{ GRAPHITE_DIR }}/conf/storage-aggregation.conf
   tags:
     - settings
