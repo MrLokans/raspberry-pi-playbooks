@@ -14,18 +14,18 @@
         state=absent
 
 - name: Make sure dir for statsd is present
-  file: group={{ STATSD_GROUP }}
-        owner={{ STATSD_USER }}
-        path={{ STATSD_INSTALLATION_DIR }}
+  file: path={{ STATSD_INSTALLATION_DIR }}
         state=directory
 
 - name: Checkout statsd repository
   git: clone=yes
        repo={{ STATSD_REPO_URL }}
        dest={{ STATSD_INSTALLATION_DIR }}
-  become: yes
-  become_method: sudo
-  become_user: "{{ STATSD_USER }}"
+
+- name: Update statsd dir permissions
+  file: group={{ STATSD_GROUP }}
+        owner={{ STATSD_USER }}
+        path={{ STATSD_INSTALLATION_DIR }}
 
 - name: Copy statsd supervisor config
   template: src=templates/statsd-supervisord.conf.j2
