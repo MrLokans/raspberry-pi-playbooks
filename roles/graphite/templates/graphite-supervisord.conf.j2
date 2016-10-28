@@ -1,5 +1,5 @@
 [program:{{ GRAPHITE_APP_NAME }}]
-command={{ GRAPHITE_DIR }}/bin/python {{ GRAPHITE_DIR }}/webapp/graphite/manage.py runserver --noreload --pythonpath=%(here)s/graph/webapp --settings=graphite.settings 0.0.0.0:8083
+command={{ GRAPHITE_DIR }}/bin/python {{ GRAPHITE_DIR }}/webapp/graphite/manage.py runserver --noreload --pythonpath={{ GRAPHITE_DIR }}/webapp --settings=graphite.settings 0.0.0.0:8083
 process_name=%(program_name)s
 priority=5
 autostart=true

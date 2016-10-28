@@ -4,8 +4,15 @@ logfile_maxbytes={{ SUPERVISORD_LOG_MAX_BYTES }}
 logfile_backups=10
 loglevel={{ SUPERVISORD_LOG_LEVEL }}
 
+[unix_http_server]
+file=/var/run/supervisor.sock
+chmod=0700
+
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
 [supervisorctl]
-serverurl=unix:///var/run/supervisor/supervisor.sock
+serverurl=unix:///var/run/supervisor.sock
 
 [include]
 files={{ SUPERVISORD_CONF_DIR }}/conf.d/*.conf
