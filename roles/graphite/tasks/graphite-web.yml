@@ -10,12 +10,16 @@
 - name: Install dependencies
   pip: name={{ item }} state=present virtualenv={{ GRAPHITE_DIR }}
   with_items:
-    - "django==1.9"
+    - "django==1.8"
 
 - name: Run syncdb
-  command: "{{ GRAPHITE_DIR }}/bin/python manage.py migrate --run-syncdb"
+  command: bash -c "{{ GRAPHITE_DIR }}/bin/python manage.py migrate; {{ GRAPHITE_DIR }}/bin/python manage.py syncdb"
   args:
     chdir: "{{ GRAPHITE_DIR }}/webapp/graphite"
+
+- name: Copy WSGI config
+  template: src=graphite.wsgi.j2
+            dest={{ GRAPHITE_DIR }}/webapp/graphite/graphite_wsgi.py
 
 - name: Copy supervisor config
   template: src=templates/graphite-supervisord.conf.j2

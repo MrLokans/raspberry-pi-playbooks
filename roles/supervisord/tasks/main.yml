@@ -1,6 +1,7 @@
 ---
 - name: Install Supervisord
   apt: name={{ item }} state=present
+       update_cache=true cache_valid_time=7200
   with_items: 
     - supervisor
 
@@ -14,6 +15,10 @@
     src: templates/supervisord.init.j2
     dest: /etc/init.d/supervisor
     mode: u+x,g+x
+
+- name: Kill supervisord process if it is running
+  command: pkill -f supervisord
+  ignore_errors: true
 
 - name: Ensure supervisord is running
   service:

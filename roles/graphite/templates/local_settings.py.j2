@@ -3,30 +3,31 @@ SECRET_KEY = '{{ GRAPHITE_SECRET_KEY }}'
 #ALLOWED_HOSTS = [ '*' ]
 TIME_ZONE = 'UTC'
 
-#LOG_RENDERING_PERFORMANCE = True
-#LOG_CACHE_PERFORMANCE = True
-#LOG_METRIC_ACCESS = True
+LOG_RENDERING_PERFORMANCE = True
+LOG_CACHE_PERFORMANCE = True
+LOG_METRIC_ACCESS = True
 
-#DEBUG = True
+DEBUG = True
 
-#DEFAULT_CACHE_DURATION = 60 # Cache images and data for 1 minute
+DEFAULT_CACHE_DURATION = 60 # Cache images and data for 1 minute
+DOCUMENTATION_URL = "http://graphite.readthedocs.org/"
 
 # to somewhere else
-#GRAPHITE_ROOT = '/opt/graphite'
+GRAPHITE_ROOT = '/opt/graphite'
 
-#CONF_DIR = '/opt/graphite/conf'
-#STORAGE_DIR = '/opt/graphite/storage'
-#CONTENT_DIR = '/opt/graphite/webapp/content'
+CONF_DIR = '/opt/graphite/conf'
+STORAGE_DIR = '/opt/graphite/storage'
+CONTENT_DIR = '/opt/graphite/webapp/content'
 
 ## Webapp config files
-#DASHBOARD_CONF = '/opt/graphite/conf/dashboard.conf'
-#GRAPHTEMPLATES_CONF = '/opt/graphite/conf/graphTemplates.conf'
+DASHBOARD_CONF = '/opt/graphite/conf/dashboard.conf'
+GRAPHTEMPLATES_CONF = '/opt/graphite/conf/graphTemplates.conf'
 
-#WHISPER_DIR = '/opt/graphite/storage/whisper'
-#RRD_DIR = '/opt/graphite/storage/rrd'
-#DATA_DIRS = [WHISPER_DIR, RRD_DIR] # Default: set from the above variables
-#LOG_DIR = '/opt/graphite/storage/log/webapp'
-#INDEX_FILE = '/opt/graphite/storage/index'  # Search index file
+WHISPER_DIR = '/opt/graphite/storage/whisper'
+RRD_DIR = '/opt/graphite/storage/rrd'
+DATA_DIRS = [WHISPER_DIR, RRD_DIR] # Default: set from the above variables
+LOG_DIR = '/opt/graphite/storage/log/webapp'
+INDEX_FILE = '/opt/graphite/storage/index'  # Search index file
 
 
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -74,9 +75,25 @@ DATABASES = {
         'PORT': ''
     }
 }
-#CARBONLINK_HOSTS = ["127.0.0.1:7002:a", "127.0.0.1:7102:b", "127.0.0.1:7202:c"]
-#CARBONLINK_TIMEOUT = 1.0
+CARBONLINK_HOSTS = []
+CARBONLINK_TIMEOUT = 1.0
+CARBONLINK_QUERY_BULK = False
+
+LEGEND_MAX_ITEMS = 10
+
+REMOTE_RENDERING = False
+REMOTE_STORE_FETCH_TIMEOUT = 6   # Timeout to fetch series data
+REMOTE_STORE_FIND_TIMEOUT = 2.5  # Timeout for metric find requests
+REMOTE_STORE_RETRY_DELAY = 60    # Time before retrying a failed remote webapp
+REMOTE_STORE_USE_POST = False    # Use POST instead of GET for remote requests
+REMOTE_FIND_CACHE_DURATION = 300 # Time to cache remote metric find results
+REMOTE_PREFETCH_DATA = False
+REMOTE_STORE_MERGE_RESULTS = False
+REMOTE_RENDER_CONNECT_TIMEOUT = 1.0
+
+
+CLUSTER_SERVERS = []
 
 # Uncomment the following line for direct access to Django settings such as
 # MIDDLEWARE_CLASSES or APPS
-#from graphite.app_settings import *
+from graphite.app_settings import *
