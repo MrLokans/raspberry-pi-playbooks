@@ -7,9 +7,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
 
   config.vm.network :private_network, ip: "192.168.101.101"
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 8083, host: 8083
+
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"
     ansible.playbook = "playbook-test.yml"
     ansible.host_key_checking = false
   end
+
 end
