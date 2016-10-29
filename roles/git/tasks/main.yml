@@ -1,3 +1,4 @@
 ---
 - name: Install git package
   apt: name=git state=present
+       update_cache=true cache_valid_time=7200
