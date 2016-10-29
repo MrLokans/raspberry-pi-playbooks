@@ -1,6 +1,8 @@
 GRAPHITE_VERSON: 0.9.15
 GRAPHITE_DIR: /opt/graphite
 
+GRAPHITE_SECRET_KEY: ZTg4NzZiZmM2YjZmODBhY2MzN2VmMzA4MGJjYTk3YTU2M2E1ZWZjOWE4MDNjNWZmN2JkYjMzM2Y4
+
 CARBON_REPO: https://github.com/graphite-project/carbon
 WHISPER_REPO: https://github.com/graphite-project/whisper
 GRAPHITE_WEB_REPO: https://github.com/graphite-project/graphite-web

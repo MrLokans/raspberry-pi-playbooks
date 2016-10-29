@@ -15,9 +15,13 @@
   tags:
     - settings
 
+- name: Reread supervisord configuration
+  command: supervisorctl -c {{ SUPERVISORD_CONF_DIR }}/supervisord.conf reread
+
+
 - name: start carbon cache
   supervisorctl: name={{ CARBON_APP_NAME }}
-                 state=started
+                 state=restarted
                  config={{ SUPERVISORD_CONF_DIR }}/supervisord.conf
   tags:
     - activation

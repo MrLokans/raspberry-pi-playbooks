@@ -2,6 +2,7 @@
 
 - name: Make sure required packages are installed
   apt: pkg={{ item }} state=latest
+       update_cache=true cache_valid_time=7200
   with_items:
     - libcairo2-dev
     - libffi-dev
@@ -24,6 +25,7 @@
     - gunicorn
     - cairocffi
     - django-tagging
+    - graphite-web
 
 - include: whisper.yml
 - include: carbon.yml

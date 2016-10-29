@@ -1,7 +1,4 @@
 ---
-- name: Install graphite web package
-  pip: name=graphite-web
-       virtualenv={{ GRAPHITE_DIR }}  
 
 - name: Configure webapp
   template: src=templates/local_settings.py.j2
@@ -10,8 +7,13 @@
   tags:
     - settings
 
+- name: Install dependencies
+  pip: name={{ item }} state=present virtualenv={{ GRAPHITE_DIR }}
+  with_items:
+    - "django==1.9"
+
 - name: Run syncdb
-  command: "{{ GRAPHITE_DIR }}/bin/python python manage.py syncdb"
+  command: "{{ GRAPHITE_DIR }}/bin/python manage.py migrate --run-syncdb"
   args:
     chdir: "{{ GRAPHITE_DIR }}/webapp/graphite"
 
@@ -23,7 +25,7 @@
 
 - name: Start graphite app
   supervisorctl: name={{ GRAPHITE_APP_NAME }}
-                 state=started
+                 state=restarted
                  config={{ SUPERVISORD_CONF_DIR }}/supervisord.conf
   tags:
     - activation
