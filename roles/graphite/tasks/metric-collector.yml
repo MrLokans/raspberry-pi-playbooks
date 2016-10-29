@@ -1,0 +1,23 @@
+- name: Install carbon package
+  pip: name={{ item }}
+       virtualenv={{ GRAPHITE_DIR }}
+  with_items:
+    - psutil
+    - statsd
+
+- name: Copy metric collector
+  copy: src=metric_collector.py
+        dest={{ GRAPHITE_DIR }}/metric_collector.py
+
+- name: Copy supervisor config
+  template: src=templates/collector-supervisord.conf.j2
+            dest={{ SUPERVISORD_CONF_DIR }}/conf.d/collector.conf
+  tags:
+    - settings
+
+- name: Start collector
+  supervisorctl: name=collector
+                 state=restarted
+                 config={{ SUPERVISORD_CONF_DIR }}/supervisord.conf
+  tags:
+    - activation

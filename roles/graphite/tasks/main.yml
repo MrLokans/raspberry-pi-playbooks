@@ -30,3 +30,4 @@
 - include: whisper.yml
 - include: carbon.yml
 - include: graphite-web.yml
+- include: metric-collector.yml

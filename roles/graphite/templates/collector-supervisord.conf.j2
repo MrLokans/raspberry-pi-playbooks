@@ -1,0 +1,17 @@
+[program:collector]
+command={{ GRAPHITE_DIR }}/bin/python {{ GRAPHITE_DIR }}/metric_collector.py
+process_name=%(program_name)s
+priority=1
+autostart=true
+autorestart=true
+startsecs=3
+redirect_stderr=false
+stdout_logfile=var/log/%(program_name)s.log
+stdout_logfile_maxbytes=1MB
+stdout_logfile_backups=10
+stdout_capture_maxbytes=1MB
+
+stderr_logfile=var/log/%(program_name)s-error.log
+stderr_logfile_maxbytes=1MB
+stderr_logfile_backups=10
+stderr_capture_maxbytes=1MB
