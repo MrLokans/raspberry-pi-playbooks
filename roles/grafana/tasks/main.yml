@@ -1,0 +1,28 @@
+- name: Add grafana repository (Debian)
+  apt_repository: repo='deb {{ grafana_repo_url }} {{ debian_version }} main'
+                  state=present
+                  filename='grafana'
+  when: ansible_os_family == 'Debian'
+
+
+- name: Add grafana repository (RedHat)
+  template: src=grafana.repo
+            dest=/etc/yum.repos.d/grafana.repo
+  when: ansible_os_family == 'RedHat'
+
+- name: Add key
+  apt_key: url={{ grafana_key }}
+  when: ansible_os_family == 'Debian'
+
+- name: Install grafana package (Debian)
+  apt: name=grafana state=present
+       update_cache=yes
+  when: ansible_os_family == 'Debian'
+
+- name: Install grafana package (RedHat)
+  yum: name=grafana state=present
+       update_cache=yes
+  when: ansible_os_family == 'RedHat'
+
+- name: Start and enable grafana service
+  service: name=grafana-server state=started enabled=yes
