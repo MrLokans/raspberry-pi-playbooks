@@ -50,3 +50,4 @@ if __name__ == '__main__':
 
         for name, value in gauges.items():
             statsd_client.gauge(name, value)
+        time.sleep(1)
