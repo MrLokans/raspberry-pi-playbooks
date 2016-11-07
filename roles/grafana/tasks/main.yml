@@ -1,3 +1,9 @@
+- name: Package to support installing package via HTTPS (debian)
+  apt: name=apt-transport-https state=present
+       update_cache=yes cache_valid_time=7200
+       force=yes
+  when: ansible_os_family == 'Debian'
+
 - name: Add grafana repository (Debian)
   apt_repository: repo='deb {{ grafana_repo_url }} {{ debian_version }} main'
                   state=present
@@ -16,12 +22,11 @@
 
 - name: Install grafana package (Debian)
   apt: name=grafana state=present
-       update_cache=yes
   when: ansible_os_family == 'Debian'
 
 - name: Install grafana package (RedHat)
   yum: name=grafana state=present
-       update_cache=yes
+       update_cache=yes cache_valid_time=7200
   when: ansible_os_family == 'RedHat'
 
 - name: Start and enable grafana service

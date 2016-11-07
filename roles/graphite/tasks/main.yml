@@ -1,32 +1,34 @@
 ---
 
-- name: Make sure required packages are installed
-  apt: pkg={{ item }} state=latest
-       update_cache=true cache_valid_time=7200
-  with_items:
-    - libcairo2-dev
-    - libffi-dev
-    - memcached
-    - python-dev
-    - python-virtualenv
+# - name: Make sure required packages are installed
+#   apt: pkg={{ item }} state=latest
+#        update_cache=true cache_valid_time=7200
+#   with_items:
+#     - libcairo2-dev
+#     - libffi-dev
+#     - memcached
+#     - python-dev
+#     - python-virtualenv
 
-- name: Make sure graphite app dir exists
-  file: name={{ GRAPHITE_DIR }}
-        state=directory
+# - name: Make sure graphite app dir exists
+#   file: name={{ GRAPHITE_DIR }}
+#         state=directory
 
-- name: Create virtualenv and install required dependencies
-  pip: name={{ item }}
-       virtualenv=/opt/graphite/
-       virtualenv_site_packages=no
-  with_items:
-    - python-memcached 
-    - pytz 
-    - pyparsing
-    - gunicorn
-    - cairocffi
-    - django-tagging
-    - graphite-web
+# - name: Create virtualenv and install required dependencies
+#   pip: name={{ item }}
+#        virtualenv=/opt/graphite/
+#        virtualenv_site_packages=no
+#   with_items:
+#     - python-memcached 
+#     - pytz 
+#     - pyparsing
+#     - gunicorn
+#     - cairocffi
+#     - django-tagging
+#     - graphite-web
 
+- name: Restart supervisord to avoid issues with missing sockets
+  service: name=supervisord state=restarted
 - include: whisper.yml
 - include: carbon.yml
 - include: graphite-web.yml

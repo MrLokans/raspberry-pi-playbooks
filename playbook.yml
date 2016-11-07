@@ -2,5 +2,16 @@
 - hosts: raspberry
   become: yes
   become_method: sudo
+  vars:
+    - SUPERVISORD_CONF_DIR: /etc/supervisor
   roles:
-    - transmission
+    - timezone
+    - git
+    - supervisord
+    - { role: nodejs, tags: ['mongitoring', 'server', 'frontend'] }
+    - { role: transmission, tags: ['torrents'] }
+    - { role: samba, tags: ['filestorage', 'torrents'] }
+    - mopidy
+    - { role: statsd, tags: ['monitoring'] }
+    - role: graphite
+    - role: grafana
