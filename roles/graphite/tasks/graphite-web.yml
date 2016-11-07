@@ -16,6 +16,7 @@
   command: bash -c "{{ GRAPHITE_DIR }}/bin/python manage.py migrate; {{ GRAPHITE_DIR }}/bin/python manage.py syncdb"
   args:
     chdir: "{{ GRAPHITE_DIR }}/webapp/graphite"
+  ignore_errors: yes
 
 - name: Copy WSGI config
   template: src=graphite.wsgi.j2
